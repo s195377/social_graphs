@@ -14,11 +14,9 @@ The graph can be viewed as a force network or a radial degree view. The radial v
 places characters on concentric degree rings, with highly connected characters near the
 center and low-degree or isolated characters toward the outside.
 
-The character directory is a horizontal, scroll-snapping carousel. Search narrows its
-cards, and users can drag, swipe, scroll sideways, or use its previous/next controls to
-select a character. It appears directly below the graph with compact character cards;
-the selected-character detail panel sits alongside it on desktop screens. Cards show
-descriptions and direct-connection counts; selecting one highlights it in the network.
+The character directory is a vertically scrollable list. Search narrows its cards, and
+selecting a character opens its description and directed connection lists in the
+adjacent detail panel.
 
 The degree-distribution panel plots the observed nonzero undirected degrees on log-log
 axes and compares one-parameter power-law and exponential fits. It reports their fitted

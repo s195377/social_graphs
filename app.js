@@ -7,8 +7,6 @@ const directory = document.querySelector("#character-directory");
 const detail = document.querySelector("#character-detail");
 const search = document.querySelector("#character-search");
 const directoryStatus = document.querySelector("#directory-status");
-const previousDirectoryButton = document.querySelector("#directory-previous");
-const nextDirectoryButton = document.querySelector("#directory-next");
 const networkGraph = document.querySelector("#network-graph");
 const networkStatus = document.querySelector("#network-status");
 const networkLegend = document.querySelector("#network-legend");
@@ -805,7 +803,7 @@ function renderNetwork() {
       : `${clusterName} layer on ${graph.nodes.size.toLocaleString()} nodes and ${edges.length.toLocaleString()} undirected connections. Select a node to highlight its neighbors.`;
 }
 
-function selectCharacter(id, revealInNetwork = false) {
+function selectCharacter(id) {
   const character = graph.nodes.get(id);
   if (!character) return;
 
@@ -832,9 +830,6 @@ function selectCharacter(id, revealInNetwork = false) {
     button.setAttribute("aria-pressed", String(button.dataset.id === id));
   });
   renderNetwork();
-  if (revealInNetwork) {
-    networkGraph.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
 }
 
 function createConnectionColumn(title, ids) {
@@ -859,7 +854,7 @@ function createConnectionColumn(title, ids) {
     .forEach((character) => {
       const button = createElement("button", character.name, "connection-button");
       button.type = "button";
-      button.addEventListener("click", () => selectCharacter(character.id, true));
+      button.addEventListener("click", () => selectCharacter(character.id));
       list.append(button);
     });
   column.append(list);
@@ -889,78 +884,14 @@ function renderDirectory(query = "") {
       const button = createElement("button", "", "character-button");
       button.type = "button";
       button.dataset.id = character.id;
-      button.setAttribute("aria-pressed", String(character.id === selectedCharacterId));
-      button.setAttribute(
-        "aria-label",
-        `Select ${character.name} and highlight their network connections`,
-      );
+      button.setAttribute("aria-pressed", "false");
       button.append(
         createElement("strong", character.name),
-        createElement("span", character.description, "character-description"),
-        createElement(
-          "span",
-          `${(graph.neighbors.get(character.id)?.size || 0).toLocaleString()} connections`,
-          "character-connections",
-        ),
+        createElement("span", character.description),
       );
       button.addEventListener("click", () => selectCharacter(character.id));
       directory.append(button);
     });
-}
-
-function initializeDirectoryCarousel() {
-  let activePointerId;
-  let initialScrollPosition;
-  let initialPointerPosition;
-  let dragged = false;
-
-  const scrollDirectory = (direction) => {
-    directory.scrollBy({ left: direction * directory.clientWidth * 0.85, behavior: "smooth" });
-  };
-
-  previousDirectoryButton.addEventListener("click", () => scrollDirectory(-1));
-  nextDirectoryButton.addEventListener("click", () => scrollDirectory(1));
-
-  directory.addEventListener("pointerdown", (event) => {
-    activePointerId = event.pointerId;
-    initialPointerPosition = event.clientX;
-    initialScrollPosition = directory.scrollLeft;
-    dragged = false;
-    directory.setPointerCapture(activePointerId);
-  });
-
-  directory.addEventListener("pointermove", (event) => {
-    if (event.pointerId !== activePointerId) return;
-    const distance = event.clientX - initialPointerPosition;
-    if (Math.abs(distance) > 4) {
-      dragged = true;
-      directory.classList.add("is-dragging");
-      directory.scrollLeft = initialScrollPosition - distance;
-    }
-  });
-
-  const finishDrag = (event) => {
-    if (event.pointerId !== activePointerId) return;
-    if (directory.hasPointerCapture(activePointerId)) directory.releasePointerCapture(activePointerId);
-    activePointerId = undefined;
-    directory.classList.remove("is-dragging");
-    window.setTimeout(() => {
-      dragged = false;
-    }, 0);
-  };
-
-  directory.addEventListener("pointerup", finishDrag);
-  directory.addEventListener("pointercancel", finishDrag);
-  directory.addEventListener(
-    "click",
-    (event) => {
-      if (dragged) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    },
-    true,
-  );
 }
 
 async function initialize() {
@@ -973,7 +904,6 @@ async function initialize() {
     renderPoissonDistribution();
     renderNetwork();
     renderDirectory();
-    initializeDirectoryCarousel();
     search.addEventListener("input", (event) => renderDirectory(event.target.value));
     distributionXScale.addEventListener("change", renderDistribution);
     distributionYScale.addEventListener("change", renderDistribution);

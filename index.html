@@ -235,28 +235,17 @@
               <p class="eyebrow">Directory</p>
               <h2>Find a character</h2>
             </div>
-            <div class="directory-tools">
-              <label class="search-field" for="character-search">
-                <span class="visually-hidden">Search characters</span>
-                <input
-                  id="character-search"
-                  type="search"
-                  placeholder="Search by name or description"
-                  autocomplete="off"
-                >
-              </label>
-              <div class="carousel-controls" aria-label="Carousel navigation">
-                <button id="directory-previous" type="button" aria-label="Previous characters">
-                  Previous
-                </button>
-                <button id="directory-next" type="button" aria-label="Next characters">
-                  Next
-                </button>
-              </div>
-            </div>
+            <label class="search-field" for="character-search">
+              <span class="visually-hidden">Search characters</span>
+              <input
+                id="character-search"
+                type="search"
+                placeholder="Search by name or description"
+                autocomplete="off"
+              >
+            </label>
           </div>
           <p id="directory-status" class="directory-status" aria-live="polite">Loading characters...</p>
-          <p class="directory-hint">Drag, swipe, scroll sideways, or use the controls to browse characters.</p>
           <div id="character-directory" class="character-directory" aria-live="polite"></div>
         </div>
 
