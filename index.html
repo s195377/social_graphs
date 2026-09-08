@@ -7,17 +7,17 @@
       name="description"
       content="An interactive explorer for the Week 1 Marvel Comics social graph."
     >
-    <title>Week 1 Social Graph</title>
+    <title>Marvel Network Atlas</title>
     <link rel="stylesheet" href="styles.css">
     <script src="app.js" defer></script>
   </head>
   <body>
     <header class="hero">
-      <p class="eyebrow">Social Graphs 2026</p>
+      <p class="eyebrow">Social Graphs 2026 / Network Atlas</p>
       <h1>Marvel character connections</h1>
       <p class="lede">
-        Explore the directed Wikipedia-link network from the Week 1 dataset. An edge
-        <strong>A &rarr; B</strong> means character A's article links to character B's article.
+        Explore the undirected Marvel character network from the Week 1 dataset. A link
+        connects two characters when either Wikipedia article references the other.
       </p>
     </header>
 
@@ -37,6 +37,197 @@
         </article>
       </section>
 
+      <section class="distribution-panel" aria-labelledby="distribution-heading">
+        <div class="distribution-heading">
+          <div>
+            <p class="eyebrow">Distribution statistics</p>
+            <h2 id="distribution-heading">Undirected degree distribution</h2>
+          </div>
+          <div class="distribution-controls" aria-label="Distribution axis scales">
+            <label>
+              X axis
+              <select id="distribution-x-scale">
+                <option value="linear">Linear</option>
+                <option value="log" selected>Logarithmic</option>
+              </select>
+            </label>
+            <label>
+              Y axis
+              <select id="distribution-y-scale">
+                <option value="linear">Linear</option>
+                <option value="log" selected>Logarithmic</option>
+              </select>
+            </label>
+          </div>
+          <p id="distribution-description">
+            Log-log view of connected characters, with fitted one-parameter models.
+          </p>
+        </div>
+        <div class="distribution-stats" aria-label="Degree distribution summary">
+          <article>
+            <span id="connected-node-count" class="distribution-value">--</span>
+            <span>connected characters</span>
+          </article>
+          <article>
+            <span id="isolated-node-count" class="distribution-value">--</span>
+            <span>isolated characters</span>
+          </article>
+          <article>
+            <span id="mean-degree" class="distribution-value">--</span>
+            <span>mean degree</span>
+          </article>
+          <article>
+            <span id="maximum-degree" class="distribution-value">--</span>
+            <span>maximum degree</span>
+          </article>
+        </div>
+        <div class="distribution-chart-wrap">
+          <svg
+            id="distribution-chart"
+            viewBox="0 0 960 360"
+            role="img"
+            aria-label="Log-log comparison of the observed degree distribution with fitted power-law and exponential models."
+          ></svg>
+        </div>
+        <div class="distribution-legend" aria-label="Distribution chart legend">
+          <span><i class="legend-swatch observed"></i>Observed distribution</span>
+          <span><i class="legend-swatch power-law"></i>Power-law fit</span>
+          <span><i class="legend-swatch exponential"></i>Exponential fit</span>
+        </div>
+        <div class="model-fits" aria-label="Model fit statistics">
+          <article>
+            <strong>Power law</strong>
+            <span id="power-law-fit">--</span>
+          </article>
+          <article>
+            <strong>Exponential</strong>
+            <span id="exponential-fit">--</span>
+          </article>
+        </div>
+        <div class="poisson-heading">
+          <div>
+            <p class="eyebrow">Histogram comparison</p>
+            <h3>Observed degrees and Poisson fit</h3>
+          </div>
+          <p id="poisson-fit">--</p>
+        </div>
+        <div class="poisson-chart-wrap">
+          <svg
+            id="poisson-chart"
+            viewBox="0 0 960 300"
+            role="img"
+            aria-label="Histogram of all undirected degrees with a fitted Poisson distribution."
+          ></svg>
+        </div>
+        <div class="distribution-legend" aria-label="Poisson chart legend">
+          <span><i class="legend-swatch histogram"></i>Observed characters</span>
+          <span><i class="legend-swatch poisson"></i>Expected Poisson count</span>
+        </div>
+      </section>
+
+      <section class="network-panel" aria-labelledby="network-heading">
+        <div class="network-heading">
+          <div>
+            <p class="eyebrow">Network map</p>
+            <h2 id="network-heading">Characters and their connections</h2>
+          </div>
+          <div class="network-options">
+            <div class="network-layout-controls" aria-label="Network layout">
+              <span class="control-label">View</span>
+              <button
+                type="button"
+                class="network-layout-button"
+                data-layout="force"
+                aria-pressed="true"
+              >
+                Force network
+              </button>
+              <button
+                type="button"
+                class="network-layout-button"
+                data-layout="radial"
+                aria-pressed="false"
+              >
+                Radial degree
+              </button>
+            </div>
+            <div class="network-controls" aria-label="Graph direction">
+              <button
+                type="button"
+                class="network-type-button"
+                data-graph-type="undirected"
+                aria-pressed="true"
+              >
+                Undirected
+              </button>
+              <button
+                type="button"
+                class="network-type-button"
+                data-graph-type="directed"
+                aria-pressed="false"
+              >
+                Directed and weighted
+              </button>
+            </div>
+            <div class="network-cluster-controls" aria-label="Character cluster">
+              <span class="control-label">Cluster</span>
+              <button
+                type="button"
+                class="network-cluster-button"
+                data-cluster="all"
+                aria-pressed="true"
+              >
+                Full network
+              </button>
+              <button
+                type="button"
+                class="network-cluster-button"
+                data-cluster="incoming"
+                aria-pressed="false"
+              >
+                Top 10 incoming
+              </button>
+              <button
+                type="button"
+                class="network-cluster-button"
+                data-cluster="outgoing"
+                aria-pressed="false"
+              >
+                Top 10 outgoing
+              </button>
+              <button
+                type="button"
+                class="network-cluster-button"
+                data-cluster="degree"
+                aria-pressed="false"
+              >
+                Top 10 connections
+              </button>
+              <button
+                type="button"
+                class="network-cluster-button"
+                data-cluster="neighbors"
+                aria-pressed="false"
+              >
+                Incoming top 10 neighbors
+              </button>
+            </div>
+          </div>
+          <p id="network-status" class="network-status" aria-live="polite">
+            Select a node to highlight its neighbors.
+          </p>
+          <p id="network-legend" class="network-legend"></p>
+        </div>
+        <div class="network-canvas">
+          <svg
+            id="network-graph"
+            viewBox="0 0 960 600"
+            role="group"
+            aria-label="Marvel character network. Select a character node to inspect its connections."
+          ></svg>
+        </div>
+      </section>
+
       <section class="explorer" aria-label="Character explorer">
         <div class="directory-panel">
           <div class="section-heading">
@@ -44,17 +235,28 @@
               <p class="eyebrow">Directory</p>
               <h2>Find a character</h2>
             </div>
-            <label class="search-field" for="character-search">
-              <span class="visually-hidden">Search characters</span>
-              <input
-                id="character-search"
-                type="search"
-                placeholder="Search by name or description"
-                autocomplete="off"
-              >
-            </label>
+            <div class="directory-tools">
+              <label class="search-field" for="character-search">
+                <span class="visually-hidden">Search characters</span>
+                <input
+                  id="character-search"
+                  type="search"
+                  placeholder="Search by name or description"
+                  autocomplete="off"
+                >
+              </label>
+              <div class="carousel-controls" aria-label="Carousel navigation">
+                <button id="directory-previous" type="button" aria-label="Previous characters">
+                  Previous
+                </button>
+                <button id="directory-next" type="button" aria-label="Next characters">
+                  Next
+                </button>
+              </div>
+            </div>
           </div>
           <p id="directory-status" class="directory-status" aria-live="polite">Loading characters...</p>
+          <p class="directory-hint">Drag, swipe, scroll sideways, or use the controls to browse characters.</p>
           <div id="character-directory" class="character-directory" aria-live="polite"></div>
         </div>
 
