@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="An interactive explorer for the Week 1 Marvel Comics social graph."
+    >
+    <title>Week 1 Social Graph</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="hero">
+      <p class="eyebrow">Social Graphs 2026</p>
+      <h1>Marvel character connections</h1>
+      <p class="lede">
+        Explore the directed Wikipedia-link network from the Week 1 dataset. An edge
+        <strong>A &rarr; B</strong> means character A's article links to character B's article.
+      </p>
+    </header>
+
+    <main>
+      <section class="stats" aria-label="Network summary">
+        <article>
+          <span id="node-count" class="stat-value">--</span>
+          <span class="stat-label">characters</span>
+        </article>
+        <article>
+          <span id="edge-count" class="stat-value">--</span>
+          <span class="stat-label">directed links</span>
+        </article>
+        <article>
+          <span id="average-links" class="stat-value">--</span>
+          <span class="stat-label">links per character</span>
+        </article>
+      </section>
+
+      <section class="explorer" aria-label="Character explorer">
+        <div class="directory-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Directory</p>
+              <h2>Find a character</h2>
+            </div>
+            <label class="search-field" for="character-search">
+              <span class="visually-hidden">Search characters</span>
+              <input
+                id="character-search"
+                type="search"
+                placeholder="Search by name or description"
+                autocomplete="off"
+              >
+            </label>
+          </div>
+          <p id="directory-status" class="directory-status" aria-live="polite">Loading characters...</p>
+          <div id="character-directory" class="character-directory" aria-live="polite"></div>
+        </div>
+
+        <aside id="character-detail" class="detail-panel" aria-live="polite">
+          <p class="eyebrow">Connections</p>
+          <h2>Select a character</h2>
+          <p>Choose a result to see its description and the characters it links to and receives links from.</p>
+        </aside>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Data: <a href="https://sunelehmann.com/socialgraphs2026-web/data/">Social Graphs 2026</a>,
+        Week 1 frozen snapshot (2026-08-26).
+      </p>
+    </footer>
+  </body>
+</html>

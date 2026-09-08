@@ -1,0 +1,281 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #18233a;
+  background: #f5f7fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.hero,
+main,
+footer {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.hero {
+  padding: 4.5rem 0 2.5rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  color: #4f46e5;
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  max-width: 720px;
+  margin-bottom: 0.75rem;
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+}
+
+h2 {
+  margin-bottom: 0.3rem;
+  font-size: 1.35rem;
+  letter-spacing: -0.025em;
+}
+
+.lede {
+  max-width: 690px;
+  color: #526078;
+  font-size: 1.1rem;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid #dfe4ef;
+  border-radius: 16px;
+  background: #dfe4ef;
+}
+
+.stats article {
+  display: grid;
+  gap: 0.2rem;
+  padding: 1.25rem 1.5rem;
+  background: #fff;
+}
+
+.stat-value {
+  color: #312e81;
+  font-size: 1.8rem;
+  font-weight: 750;
+  letter-spacing: -0.04em;
+}
+
+.stat-label,
+.directory-status,
+.detail-summary,
+footer {
+  color: #61708a;
+}
+
+.explorer {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+  gap: 1.25rem;
+  margin: 1.25rem 0 3.5rem;
+}
+
+.directory-panel,
+.detail-panel {
+  border: 1px solid #dfe4ef;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgb(41 56 85 / 5%);
+}
+
+.directory-panel {
+  padding: 1.5rem;
+}
+
+.detail-panel {
+  align-self: start;
+  padding: 1.5rem;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.search-field input {
+  width: min(100%, 270px);
+  border: 1px solid #cbd3e2;
+  border-radius: 8px;
+  padding: 0.65rem 0.8rem;
+  color: inherit;
+  font: inherit;
+}
+
+.search-field input:focus,
+.character-button:focus-visible,
+.connection-button:focus-visible {
+  outline: 3px solid rgb(99 102 241 / 35%);
+  outline-offset: 2px;
+}
+
+.directory-status {
+  margin: 1.25rem 0 0.6rem;
+  font-size: 0.9rem;
+}
+
+.character-directory {
+  display: grid;
+  max-height: 530px;
+  gap: 0.4rem;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.character-button,
+.connection-button {
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.character-button {
+  padding: 0.65rem 0.75rem;
+}
+
+.character-button:hover,
+.character-button[aria-pressed="true"],
+.connection-button:hover {
+  background: #eef2ff;
+}
+
+.character-button strong {
+  display: block;
+}
+
+.character-button span {
+  display: block;
+  overflow: hidden;
+  color: #61708a;
+  font-size: 0.85rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detail-panel > p:last-of-type {
+  margin-bottom: 0;
+}
+
+.detail-description {
+  color: #526078;
+}
+
+.detail-link {
+  color: #4338ca;
+  font-weight: 650;
+}
+
+.connection-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1.5rem;
+}
+
+.connection-heading {
+  margin-bottom: 0.45rem;
+  font-size: 0.95rem;
+}
+
+.connection-list {
+  display: grid;
+  gap: 0.2rem;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.connection-button {
+  padding: 0.35rem 0.45rem;
+  color: #3730a3;
+  font-size: 0.88rem;
+}
+
+.empty-state {
+  margin: 0;
+  color: #61708a;
+}
+
+footer {
+  border-top: 1px solid #dfe4ef;
+  padding: 1.5rem 0 2.5rem;
+  font-size: 0.9rem;
+}
+
+footer p {
+  margin: 0;
+}
+
+a {
+  color: #4338ca;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 760px) {
+  .hero {
+    padding-top: 3rem;
+  }
+
+  .stats,
+  .explorer {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .search-field input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 390px) {
+  .connection-grid {
+    grid-template-columns: 1fr;
+  }
+}
